@@ -24,13 +24,11 @@ io.on('connection', async (socket) => {
     socket.emit('messages', messages);
 
     socket.on('new-producto', async (data) => {
-        console.clear();
         const idNuevoProducto = await producto.save(data);
         const productos = await producto.getAll();
         io.sockets.emit('productos', productos);
     });
     socket.on('new-message', async (data) => {
-        console.clear();
         const nuevoM = await chat.save(data);
         const messages = await chat.getAll();
         io.sockets.emit('messages', messages);

@@ -7,7 +7,7 @@ const renderProductos = async (data) => {
     const textTemplate = await template.text();
 	const functionTemplate = Handlebars.compile(textTemplate);
 	const html = functionTemplate({ productos: data });
-	document.querySelector('#productos').innerHTML = html
+	document.querySelector('#productos').innerHTML = html;
 }
 
 const renderChat = async (data) => {
@@ -15,7 +15,7 @@ const renderChat = async (data) => {
     const textTemplate = await template.text();
 	const functionTemplate = Handlebars.compile(textTemplate);
 	const html = functionTemplate({ productos: data });
-	document.querySelector('#messages').innerHTML = html
+	document.querySelector('#messages').innerHTML = html;
 }
 
 form.addEventListener('submit', async (e) => {
@@ -28,13 +28,13 @@ form.addEventListener('submit', async (e) => {
     };
     console.log(newProducto);
     try {
-
         socket.emit('new-producto', newProducto);
         Swal.fire(
             'Producto guardado',
             `El producto ha sido agregado con éxito`,
             'success'
         );
+        form.reset();
     }
     catch (error) {
         Swal.fire(
@@ -56,6 +56,7 @@ formChat.addEventListener('submit', async (e) => {
     console.log(newProducto);
     try {
         socket.emit('new-message', newProducto);
+        document.querySelector("#message").value = '';
     }
     catch (error) {
         Swal.fire(
